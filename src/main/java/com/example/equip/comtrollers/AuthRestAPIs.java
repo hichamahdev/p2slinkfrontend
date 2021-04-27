@@ -35,7 +35,7 @@ import com.example.equip.repository.UserRepository;
 
 
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthRestAPIs {
