@@ -23,8 +23,9 @@ public class Slot {
 	private Integer slotMin;
 	private Integer slotFin;
 	private long equipement_id;
+	
 	@OneToOne()
-	@JoinColumn(name= "slot_id")
+	@JoinColumn(name= "carte_id")
 	private Carte  carte;
 	
 	

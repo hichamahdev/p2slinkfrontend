@@ -1,5 +1,7 @@
 package com.example.equip.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -19,16 +22,16 @@ public class PortEquip {
 	private long id;
 	
 	private String nomPort;
-	private String typePort;
+	
 	private String servicePort;
 	private String puissancePort;
 	
+	@OneToMany()
+	@JoinColumn(name= "portEquip_id")
+	private List<Typeport> typeport ;
 	
-	@ManyToOne
-	@JoinColumn(name= "equipementid", insertable = false, updatable=false)
-	private Equipement equipement;
 	
-	private long equipementid;
+	
 	
 	public PortEquip() {}
 
@@ -48,12 +51,14 @@ public class PortEquip {
 		this.nomPort = nomPort;
 	}
 
-	public String getTypePort() {
-		return typePort;
+	
+
+	public List<Typeport> getTypeport() {
+		return typeport;
 	}
 
-	public void setTypePort(String typePort) {
-		this.typePort = typePort;
+	public void setTypeport(List<Typeport> typeport) {
+		this.typeport = typeport;
 	}
 
 	public String getServicePort() {
@@ -72,31 +77,16 @@ public class PortEquip {
 		this.puissancePort = puissancePort;
 	}
 	
-	@JsonBackReference
-	public Equipement getEquipement() {
-		return equipement;
-	}
-
-	public void setEquipement(Equipement equipement) {
-		this.equipement = equipement;
-	}
-
-	public long getEquipementid() {
-		return equipementid;
-	}
-
-	public void setEquipementid(long equipementid) {
-		this.equipementid = equipementid;
-	}
+	
 
 	public PortEquip(String nomPort, String typePort, String servicePort, String puissancePort, Equipement equipement
 			) {
 		super();
 		this.nomPort = nomPort;
-		this.typePort = typePort;
+		
 		this.servicePort = servicePort;
 		this.puissancePort = puissancePort;
-		this.equipement = equipement;
+		
 		
 	}
 	

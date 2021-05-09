@@ -1,5 +1,7 @@
 package com.example.equip.comtrollers;
 
+import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +24,9 @@ import com.example.equip.exception.RessourceNotFoundException;
 import com.example.equip.model.Carte;
 import com.example.equip.model.Equipement;
 import com.example.equip.model.Port;
+import com.example.equip.model.Slot;
 import com.example.equip.repository.CarteRepository;
-
+import com.example.equip.repository.PortRepository;
 import com.fasterxml.jackson.annotation.OptBoolean;
 
 
@@ -36,6 +39,9 @@ public class CarteController {
 
 	@Autowired
 	private CarteRepository carteRepository;
+	
+	@Autowired
+	private PortRepository portRepository ;
 	
 	@GetMapping("/carte")
 	public List<Carte> getAllCartes() {
@@ -63,6 +69,23 @@ public class CarteController {
 	
 	@PostMapping("/carte")
 	public Carte AddCarte(@RequestBody Carte carte) {
+		
+		List<Port> port = carte.getPort();
+		port = new ArrayList<Port>(carte.getNumberPort());
+		
+		for(int i=0; i<carte.getNumberPort() ; i++) {
+			Port portt = new Port();
+			
+			portt.setNomPort("P"+(i+1));			
+			
+			
+			portRepository.save(portt);
+			port.add(portt);
+			
+		}
+		
+		carte.setPort(port);
+		
 	    return carteRepository.save(carte);
 	}
 	

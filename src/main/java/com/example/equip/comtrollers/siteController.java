@@ -30,6 +30,7 @@ import com.example.equip.repository.siteRepository;
 @RestController
 @RequestMapping("/api/auth")
 public class siteController {
+	
 	@Autowired
 	private siteRepository siteRepository;
 	

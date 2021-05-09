@@ -54,10 +54,9 @@ public class PortEquipController {
 				.orElseThrow(() -> new RessourceNotFoundException("port not exist with id:" + id));
 	
 		portEquip.setNomPort(portEquipDetails.getNomPort());
-		portEquip.setTypePort(portEquipDetails.getTypePort());
+		portEquip.setTypeport(portEquipDetails.getTypeport());
 		portEquip.setServicePort(portEquipDetails.getServicePort());
 		portEquip.setPuissancePort(portEquipDetails.getPuissancePort());
-		portEquip.setEquipementid(portEquipDetails.getEquipementid());
 		
 		PortEquip updatedPortEquip = portEquipRepository.save(portEquip);
 		

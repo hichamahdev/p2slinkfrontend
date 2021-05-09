@@ -23,7 +23,7 @@ import com.example.equip.repository.PortRepository;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/auth/")
 public class portController {
 
 	
@@ -55,10 +55,10 @@ public class portController {
 				.orElseThrow(() -> new RessourceNotFoundException("port not exist with id:" + id));
 	
 		port.setNomPort(portDetails.getNomPort());
-		port.setTypePort(portDetails.getTypePort());
+		port.setTypeport(portDetails.getTypeport());
 		port.setServicePort(portDetails.getServicePort());
 		port.setPuissancePort(portDetails.getPuissancePort());
-		port.setCarteid(portDetails.getCarteid());
+		
 		
 		Port updatedPort = portRepository.save(port);
 		

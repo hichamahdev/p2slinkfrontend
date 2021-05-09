@@ -1,15 +1,17 @@
 package com.example.equip.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
@@ -20,25 +22,17 @@ public class Port {
 	private long id;
 	
 	private String nomPort;
-	private String typePort;
 	private String servicePort;
 	private String puissancePort;
 	
+	@OneToMany()
+	@JoinColumn(name= "port_id")
+	private List<Typeport> typeport ;
+		
 	
-	@ManyToOne
-	@JoinColumn(name= "carteid", insertable = false, updatable=false)
-	private Carte carte;
-	
-	private long carteid;
-	
-	
-	public long getCarteid() {
-		return carteid;
-	}
-	public void setCarteid(long carteid) {
-		this.carteid = carteid;
-	}
+		
 	public Port() {}
+	
 	public long getId() {
 		return id;
 	}
@@ -51,12 +45,8 @@ public class Port {
 	public void setNomPort(String nomPort) {
 		this.nomPort = nomPort;
 	}
-	public String getTypePort() {
-		return typePort;
-	}
-	public void setTypePort(String typePort) {
-		this.typePort = typePort;
-	}
+	
+	
 	public String getServicePort() {
 		return servicePort;
 	}
@@ -69,26 +59,25 @@ public class Port {
 	public void setPuissancePort(String puissancePort) {
 		this.puissancePort = puissancePort;
 	}
-	@JsonBackReference
-	public Carte getCarte() {
-		return carte;
-	}
-	public void setCarte(Carte carte) {
-		this.carte = carte;
-	}
-	public Port(String nomPort, String typePort, String servicePort, String puissancePort, Carte carte) {
+	
+	public Port(String nomPort, String servicePort, String puissancePort, Carte carte) {
 		super();
 		this.nomPort = nomPort;
-		this.typePort = typePort;
+		
 		this.servicePort = servicePort;
 		this.puissancePort = puissancePort;
-		this.carte = carte;
+		
+	}
+
+	public List<Typeport> getTypeport() {
+		return typeport;
+	}
+
+	public void setTypeport(List<Typeport> typeport) {
+		this.typeport = typeport;
 	}
 	
 	
-	
-	
-	
-	
+
 
 }

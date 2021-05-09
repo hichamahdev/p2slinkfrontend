@@ -75,6 +75,7 @@ public class equipementController {
 		slot = new ArrayList<Slot>(equipement.getNumbSlot());
 		for(int i=0; i<equipement.getNumbSlot() ; i++) {
 			Slot slott = new Slot();
+			slott.setEquipement_id(equipement.getId());
 			slott.setNomSlot("S"+(i+1));
 			slott.setNumeroSlot(i+1);
 			slott.setSlotFin(equipement.getNumeroSlotFin());

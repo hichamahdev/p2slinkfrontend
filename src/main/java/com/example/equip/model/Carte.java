@@ -25,24 +25,26 @@ public class Carte {
 	private long id;
 	private String nomCarte;
 	private String typeCarte;
+	private int numberPort;
+	private long slot_id ;
 	
 	
 	
-	@OneToMany(mappedBy= "carteid",cascade=CascadeType.REMOVE)
+	@OneToMany()
+	@JoinColumn(name= "carteid")
 	private List <Port> port;
 	
-	@JsonManagedReference
+	public int getNumberPort() {
+		return numberPort;
+	}
+
+	public void setNumberPort(int numberPort) {
+		this.numberPort = numberPort;
+	}
+
 	public List<Port> getPort() {
 		return port;
 	}
-
-	
-
-
-
-
-
-
 
 	public void setPort(List<Port> port) {
 		this.port = port;
@@ -67,16 +69,22 @@ public class Carte {
 		this.typeCarte = typeCarte;
 	}
 	
-	public Carte(String nomCarte, String typeCarte) {
+	public long getSlot_id() {
+		return slot_id;
+	}
+
+	public void setSlot_id(long slot_id) {
+		this.slot_id = slot_id;
+	}
+
+	public Carte(String nomCarte, String typeCarte,int numberPort) {
 		super();
 		this.nomCarte = nomCarte;
 		this.typeCarte = typeCarte;
+		this.numberPort = numberPort;
 		
 	}
 
-	
-	
-	
 	
 	
 	

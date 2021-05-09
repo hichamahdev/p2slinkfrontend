@@ -61,21 +61,6 @@ public class SlotController {
 	    return slotRepository.save(slot);
 	}
 	
-	@PutMapping("/slot/{id}")
-	public ResponseEntity<Slot> updateSlot(@PathVariable Long id , @RequestBody Slot slotDetails){
-		Slot slot = slotRepository.findById(id)
-				.orElseThrow(() -> new RessourceNotFoundException("slot not exist with id:" + id));
-	
-		slot.setNomSlot(slotDetails.getNomSlot());
-		slot.setTypeslot(slotDetails.getTypeslot());
-		
-		slot.setNumeroSlot(slotDetails.getNumeroSlot());
-		
-		
-		Slot updatedSlot = slotRepository.save(slot);
-		
-		return ResponseEntity.ok(updatedSlot);
-	}
 	
 	@DeleteMapping("/slot/{id}")
 	public ResponseEntity<Map<String, Boolean>> deleteSlot(@PathVariable Long id){
@@ -96,12 +81,31 @@ public class SlotController {
 		Carte carte = carteRepository.findById(id_carte)
 				.orElseThrow(() -> new RessourceNotFoundException("Equipement not exist with id:" + id_carte));
 		
-		slot.setCarte(carte);
+		sloti.setCarte(carte);
 		
-		Slot updatSlot = slotRepository.save(slot);
+		carte.setSlot_id(id_slot);
+		carteRepository.save(carte);
+		Slot updatSlot = slotRepository.save(sloti);
 		
 		return updatSlot;
 	}
+	
+	@PutMapping("/slot/{id}")
+	public ResponseEntity<Slot> updateSlot(@PathVariable Long id , @RequestBody Slot slotDetails){
+		Slot slot = slotRepository.findById(id)
+				.orElseThrow(() -> new RessourceNotFoundException("slot not exist with id:" + id));
+	
+		slot.setNomSlot(slotDetails.getNomSlot());
+		slot.setTypeslot(slotDetails.getTypeslot());
+		
+		slot.setNumeroSlot(slotDetails.getNumeroSlot());
+		
+		
+		Slot updatedSlot = slotRepository.save(slot);
+		
+		return ResponseEntity.ok(updatedSlot);
+	}
+	
 	
 }
 		

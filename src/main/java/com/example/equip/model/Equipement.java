@@ -41,35 +41,25 @@ public class Equipement {
 	@JoinColumn(name= "equipementid")
 	private List<Slot> slot; 
 	
-	public Equipement() {
+	public Equipement() {}
 		
-		
-	}
-	
-	
-	
-	
 	public List<Slot> getSlot() {
 		return slot;
 	}
 
-
-
-
 	public void setSlot(List<Slot> slot) {
 		this.slot = slot;
 	}
-	@OneToMany(mappedBy= "equipementid",cascade=CascadeType.REMOVE)
+	@OneToMany()
+	@JoinColumn(name= "equipement_id")
 	private List <PortEquip> portEquip; 
 	
-	@JsonManagedReference
+	
 	public List<PortEquip> getPortEquip() {
 		return portEquip;
 	}
 	
 	
-
-
 	public String getReference() {
 		return reference;
 	}
@@ -80,9 +70,6 @@ public class Equipement {
 	public void setReference(String reference) {
 		this.reference = reference;
 	}
-
-
-
 
 	public void setPortEquip(List<PortEquip> portEquip) {
 		this.portEquip = portEquip;
@@ -147,7 +134,6 @@ public class Equipement {
 				+ categorieEquip + ", numbSlot=" + numbSlot + ", numeroSlotMin=" + numeroSlotMin + ", numeroSlotFin="
 				+ numeroSlotFin + ", typeSlot=" + typeSlot + ", debitMax=" + debitMax + "]";
 	}
-
 
 	public void setTypeSlot(String typeSlot) {
 		this.typeSlot = typeSlot;
