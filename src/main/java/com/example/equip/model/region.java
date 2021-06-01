@@ -20,9 +20,15 @@ public class region {
 	private String nom;
 	private String note;
 	
+	
+	
 	@OneToMany()
 	@JoinColumn(name= "region_id")
 	private List<site> site ;
+	
+	@OneToMany()
+	@JoinColumn(name= "region_id")
+	private List<Anneau> anneau ;
 	
 	public region() {
 		
@@ -58,6 +64,15 @@ public class region {
 	public void setSite(List<site> site) {
 		this.site = site;
 	}
+	public List<Anneau> getAnneau() {
+		return anneau;
+	}
+	public void setAnneau(List<Anneau> anneau) {
+		this.anneau = anneau;
+	}
+
+	
+	
 	
 	
 

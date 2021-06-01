@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.equip.exception.RessourceNotFoundException;
+import com.example.equip.model.Anneau;
 import com.example.equip.model.Carte;
 import com.example.equip.model.Equipement;
 import com.example.equip.model.PortEquip;
@@ -126,6 +127,29 @@ public class equipementController {
 	public List<Equipement> getAllEquipementwithoutsite() {
 		
 	    return equipementRepository.findEquipementWithoutSite();
+	}
+	
+	@GetMapping("/equipements/anneau")
+	public List<Equipement> getAllEquipementwithoutanneau() {
+		
+	    return equipementRepository.findEquipementWithoutAnneau();
+	}
+	
+	@GetMapping("/equipements/slot/{id}")
+	public List<Slot> GetSlotByEquipement(@PathVariable Long id) {
+	    Optional<Equipement> equipement = equipementRepository.findById(id);		
+	    if(equipement.isPresent()) {
+	    	
+	    	ArrayList<Slot> slot = new ArrayList<Slot>();
+	    	ArrayList<Slot> slots = new ArrayList<Slot>(equipement.get().getSlot());
+		for(int i=0 ; i< slots.size() ; i++) {
+			if(slots.get(i).getCarte()!=null) {
+				slot.add(slots.get(i));
+			}
+		}
+		return slot;
+	    }		
+	    return null;
 	}
 	
 	

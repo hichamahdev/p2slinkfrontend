@@ -60,9 +60,19 @@ public class CarteController {
 	
 	@GetMapping("/carte/{id}/port")
 	public List<Port> GetPortByCarte(@PathVariable Long id) {
-	    Optional<Carte> carte = carteRepository.findById(id);		
+	    Optional<Carte> carte = carteRepository.findById(id);	
+	    List<Port> ports = new ArrayList<Port>();
+	    List<Port> portsCon = new ArrayList<Port>();
 	    if(carte.isPresent()) {
-		return carte.get().getPort();
+	    	
+		ports= carte.get().getPort();
+		for(int i=0;i<ports.size();i++) {
+			if(ports.get(i).isConnecte()) {
+				portsCon.add(ports.get(i));
+			}
+		}
+		
+		return portsCon;
 	    }		
 	    return null;
 	}

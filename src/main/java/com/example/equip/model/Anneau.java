@@ -20,6 +20,7 @@ public class Anneau {
 	private String nom;
 	private String type;
 	private String notes;
+
 	
 	@OneToMany()
 	@JoinColumn(name= "anneau_id")
@@ -89,8 +90,4 @@ public class Anneau {
 		this.sites = sites;
 	}
 	
-	
-	
-	
-
 }

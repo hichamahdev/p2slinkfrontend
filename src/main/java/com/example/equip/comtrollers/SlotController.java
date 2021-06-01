@@ -1,6 +1,7 @@
 package com.example.equip.comtrollers;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.equip.exception.RessourceNotFoundException;
+import com.example.equip.model.Anneau;
 import com.example.equip.model.Carte;
 import com.example.equip.model.Equipement;
 import com.example.equip.model.Slot;
 import com.example.equip.model.site;
 import com.example.equip.repository.CarteRepository;
 import com.example.equip.repository.SlotRepository;
+import com.example.equip.repository.regionRepository;
 
 
 @CrossOrigin("*")
@@ -36,6 +39,8 @@ public class SlotController {
 	
 	@Autowired
 	private CarteRepository carteRepository;
+	
+	
 	
 	
 	
@@ -106,7 +111,20 @@ public class SlotController {
 		return ResponseEntity.ok(updatedSlot);
 	}
 	
+	@GetMapping("/slot/carte")
+	public List<Slot> getAllSlotWIthCarte() {
+		
+	    return slotRepository.findSlotwithcarte();
+	}
 	
+	@GetMapping("/slot/carte/{id}")
+	public Carte GetCarteBySlot(@PathVariable Long id) {
+	    Optional<Slot> slot = slotRepository.findById(id);		
+	    if(slot.isPresent()) {
+		return slot.get().getCarte();
+	    }		
+	    return null;
+	}
 }
 		
 	

@@ -25,6 +25,9 @@ public class Port {
 	private String servicePort;
 	private String puissancePort;
 	
+	private boolean connecte;
+	
+	
 	@OneToMany()
 	@JoinColumn(name= "port_id")
 	private List<Typeport> typeport ;
@@ -76,6 +79,16 @@ public class Port {
 	public void setTypeport(List<Typeport> typeport) {
 		this.typeport = typeport;
 	}
+
+	public boolean isConnecte() {
+		return connecte;
+	}
+
+	public void setConnecte(boolean connecte) {
+		this.connecte = connecte;
+	}
+	
+	
 	
 	
 

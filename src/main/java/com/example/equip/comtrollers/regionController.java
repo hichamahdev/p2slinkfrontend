@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.swing.plaf.synth.Region;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.equip.exception.RessourceNotFoundException;
+import com.example.equip.model.Anneau;
+import com.example.equip.model.Clientt;
 import com.example.equip.model.region;
 import com.example.equip.model.site;
+import com.example.equip.repository.AnneauRepository;
 import com.example.equip.repository.regionRepository;
 import com.example.equip.repository.siteRepository;
 
@@ -33,6 +38,9 @@ public class regionController {
 	
 	@Autowired
 	private siteRepository siteRepository;
+	
+	@Autowired
+	private AnneauRepository anneauRepository;
 	
 	@GetMapping("/region")
 	public List<region> getAllRegions() {
@@ -104,6 +112,31 @@ public class regionController {
 		response.put("deleted", Boolean.TRUE);
 		return ResponseEntity.ok(response);
 		
+	}
+	
+	@GetMapping("/region/anneau/{id}")
+	public List<Anneau> GetAnneauByRegion(@PathVariable Long id) {
+		
+	    Optional<region> region = regionRepository.findById(id);		
+	    if(region.isPresent()) {
+		return region.get().getAnneau();
+	    }		
+	    return null;
+	}
+	
+	@PostMapping("/region/anneau/{id_region}/{id_anneau}")
+	public region AddAnneauRegion(@PathVariable Long id_region,@PathVariable Long id_anneau,@RequestBody region regionAnneau) {
+		region region = regionRepository.findById(id_region)
+				.orElseThrow(() -> new RessourceNotFoundException("Equipement not exist with id:" + id_region));
+		Anneau anneau = anneauRepository.findById(id_anneau)
+				.orElseThrow(() -> new RessourceNotFoundException("Carte not exist with id:" + id_anneau));
+		
+		List <Anneau> anneaux = region.getAnneau();
+		anneaux.add(anneau);
+		region.setAnneau(anneaux);
+		region updatedregion = regionRepository.save(region);
+		 
+		 return updatedregion;
 	}
 	
 

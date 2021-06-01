@@ -105,7 +105,7 @@ public class AnneauController {
 		 
 		 return updatedAnneau;
 	}
-	@GetMapping("/anneau/{id}/equipement")
+	@GetMapping("/anneau/equipement/{id}")
 	public List<Equipement> GetEquipementByAnneau(@PathVariable Long id) {
 	    Optional<Anneau> anneau = anneauRepository.findById(id);		
 	    if(anneau.isPresent()) {
@@ -114,20 +114,7 @@ public class AnneauController {
 	    return null;
 	}
 	
-	@PostMapping("/anneau/{id_anneau}/{id_site}")
-	public Anneau AddSiteAnneau(@PathVariable Long id_anneau,@PathVariable Long id_site,@RequestBody Anneau anneauSite) {
-		Anneau anneau = anneauRepository.findById(id_anneau)
-				.orElseThrow(() -> new RessourceNotFoundException("Anneau not exist with id:" + id_anneau));
-		site site = siteRepository.findById(id_site)
-				.orElseThrow(() -> new RessourceNotFoundException("Site not exist with id:" + id_site));
-		
-		List <site> sites = anneau.getSites();
-		sites.add(site);
-		anneau.setSites(sites);
-		 Anneau updatedAnneau = anneauRepository.save(anneau);
-		 
-		 return updatedAnneau;
-	}
+	
 	@GetMapping("/anneau/{id}/site")
 	public List<site> GetSiteByAnneau(@PathVariable Long id) {
 	    Optional<Anneau> anneau = anneauRepository.findById(id);		
